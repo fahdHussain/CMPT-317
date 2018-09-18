@@ -1,68 +1,19 @@
-
+#State class stores expression and value of that expression
 class State:
     def __init__(self):
         self.exp = ""
         self.val = 0
+        self.values = []
 
-    def curVal():
+    def curVal(self):
         return self.val
 
-    def curExp():
+    def curExp(self):
         return self.exp
 
-    def add(self, num):
-        newState = State()
-        if self.exp == "":
-            newState.exp = str(num)
-            newState.val = num
-            return newState
-        else:
-            newState.exp = "(" + self.exp + "+" + str(num) + ")"
-            newState.val = eval(newState.exp)
-            return newState
+    def set_values(self,list):
+        self.values = list
 
-    def sub(self, num):
-        newState = State()
-        if self.exp == "":
-            newState.exp = str(num)
-            newState.val = num
-            return newState
-        else:
-            newState.exp = "(" + self.exp + "-" + str(num) + ")"
-            newState.val = eval(newState.exp)
-            return newState
-
-    def mul(self, num):
-        if self.exp == "":
-            newState.exp = str(num)
-            newState.val = num
-            return newState
-        else:
-            newState = State()
-            newState.exp = "(" + self.exp + "*" + str(num) + ")"
-            newState.val = eval(newState.exp)
-            return newState
-
-    def div(self, num):
-        if self.exp == "":
-            newState.exp = str(num)
-            newState.val = num
-            return newState
-        else:
-            newState = State()
-            newState.exp = "(" + self.exp + "//" + str(num) + ")"
-            newState.val = eval(newState.exp)
-            return newState
-
-if __name__ == "__main__":
-    aState = State()
-    print(aState.val)
-    print(aState.exp)
-    nextState = aState.add(12)
-    print(nextState.val)
-    nnState = nextState.add(5)
-    print(nnState.val)
-    print(nnState.exp)
-    nnnState = nnState.add(8)
-    print(nnnState.val)
-    print(nnnState.exp)
+    def removeVal(self,num):
+        i = self.values.index(num)
+        self.values.pop(i)
