@@ -6,7 +6,7 @@ class State:
         self.values = []
 
     def curVal(self):
-        return self.val
+        return str(self.val)
 
     def curExp(self):
         return self.exp

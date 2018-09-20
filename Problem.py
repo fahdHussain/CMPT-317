@@ -24,6 +24,7 @@ class Problem:
 
     def actions(self,state):
         #List all possible values that can be acted upon at this state
+
         if len(state.values) == 0:
             return ["NA"]
         else:
@@ -36,7 +37,11 @@ class Problem:
         newState.values = state.values
         newState.removeVal(num)
 
-        if action == "add":
+        if state.exp == "":
+            newState.exp = str(num)
+            return newState
+
+        elif action == "add":
             newState.exp = "(" + state.exp + "+" + str(num) + ")"
             newState.val = eval(newState.exp)
             return newState
@@ -49,6 +54,7 @@ class Problem:
         elif action == "mul":
             newState.exp = "(" + state.exp + "*" + str(num) + ")"
             newState.val = eval(newState.exp)
+            return newState
 
         elif action == "div":
             if num == 0:
@@ -57,6 +63,8 @@ class Problem:
                 newState.exp = "(" + state.exp + "//" + str(num) + ")"
                 newState.val = eval(newState.exp)
                 return newState
+        else:
+            return None
 
 if __name__ == "__main__":
     initState = State()
@@ -74,3 +82,14 @@ if __name__ == "__main__":
     nextState = problem.result(initState,"add",5)
 
     print("Adding 5: "+str(nextState.curExp()))
+
+    nextnext = problem.result(nextState,"mul",4)
+
+    print("Multiplying by 4: "+str(nextnext.curExp()))
+
+    nextnextnext = problem.result(nextnext,"div",2)
+
+    print("Dividing by 2: "+nextnextnext.curExp())
+    print("Result: "+nextnextnext.curVal())
+
+    print("Remaining Elements: "+str(nextnextnext.values))
