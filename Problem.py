@@ -26,7 +26,7 @@ class Problem:
         #List all possible values that can be acted upon at this state
 
         if len(state.values) == 0:
-            return ["NA"]
+            return None
         else:
             return state.values
 
@@ -34,8 +34,9 @@ class Problem:
         #Return new state after performing action
         #Every number can be +,-,*,//(besides 0 for div)
         newState = State()
-        newState.values = state.values
-        newState.removeVal(num)
+        newValues = state.get_values()
+        newState.set_values(newValues)
+        #newState.removeVal(num)
 
         if state.exp == "":
             newState.exp = str(num)
