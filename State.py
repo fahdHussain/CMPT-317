@@ -6,13 +6,16 @@ class State:
         self.values = []
 
     def curVal(self):
-        return self.val
+        return str(self.val)
 
     def curExp(self):
         return self.exp
 
     def set_values(self,list):
         self.values = list
+
+    def get_values(self):
+        return self.values
 
     def removeVal(self,num):
         i = self.values.index(num)

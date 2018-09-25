@@ -25,7 +25,7 @@ class Problem:
     def actions(self,state):
         #List all possible actions that can be acted upon at this state
         if len(state.values) == 0:
-            return ["NA"]
+            return None
         else:
             return ["add","sub","mul","div"]
 
@@ -33,8 +33,13 @@ class Problem:
         #Return new state after performing action
         #Every number can be +,-,*,//(besides 0 for div)
         newState = State()
-        newState.values = state.values
-        newState.removeVal(num)
+        newValues = state.get_values()
+        newState.set_values(newValues)
+        #newState.removeVal(num)
+
+        if state.exp == "":
+            newState.exp = str(num)
+            return newState
 
         if action == "NA":
             return None
@@ -52,6 +57,7 @@ class Problem:
         elif action == "mul":
             newState.exp = "(" + state.exp + "*" + str(num) + ")"
             newState.val = eval(newState.exp)
+            return newState
 
         elif action == "div":
             if num == 0:
@@ -60,6 +66,8 @@ class Problem:
                 newState.exp = "(" + state.exp + "//" + str(num) + ")"
                 newState.val = eval(newState.exp)
                 return newState
+        else:
+            return None
 
 if __name__ == "__main__":
     initState = State()
@@ -77,3 +85,14 @@ if __name__ == "__main__":
     nextState = problem.result(initState,"add",5)
 
     print("Adding 5: "+str(nextState.curExp()))
+
+    nextnext = problem.result(nextState,"mul",4)
+
+    print("Multiplying by 4: "+str(nextnext.curExp()))
+
+    nextnextnext = problem.result(nextnext,"div",2)
+
+    print("Dividing by 2: "+nextnextnext.curExp())
+    print("Result: "+nextnextnext.curVal())
+
+    print("Remaining Elements: "+str(nextnextnext.values))
