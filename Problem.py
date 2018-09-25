@@ -23,11 +23,11 @@ class Problem:
 
 
     def actions(self,state):
-        #List all possible values that can be acted upon at this state
+        #List all possible actions that can be acted upon at this state
         if len(state.values) == 0:
             return ["NA"]
         else:
-            return state.values
+            return ["add","sub","mul","div"]
 
     def result(self,state,action,num):
         #Return new state after performing action
@@ -36,7 +36,10 @@ class Problem:
         newState.values = state.values
         newState.removeVal(num)
 
-        if action == "add":
+        if action == "NA":
+            return None
+
+        elif action == "add":
             newState.exp = "(" + state.exp + "+" + str(num) + ")"
             newState.val = eval(newState.exp)
             return newState
