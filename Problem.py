@@ -1,4 +1,5 @@
 from State import State
+import copy
 #Contains is_goal(state),actions(state),result(state)
 class Problem:
 
@@ -27,15 +28,13 @@ class Problem:
         if len(state.values) == 0:
             return None
         else:
-            return ["add","sub","mul","div"]
+            return state.values
 
     def result(self,state,action,num):
         #Return new state after performing action
         #Every number can be +,-,*,//(besides 0 for div)
-        newState = State()
-        newValues = state.get_values()
-        newState.set_values(newValues)
-        #newState.removeVal(num)
+        newState = copy.deepcopy(state)
+        newState.removeVal(num)
 
         if state.exp == "":
             newState.exp = str(num)

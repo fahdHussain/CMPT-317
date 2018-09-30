@@ -1,0 +1,5 @@
+1. Initial State: An empty string
+2. Goal State: A string containing an expression that evaluates to the goal
+3. Actions: Add,Subtract,Multiply and Divide
+4. Result: Return an expression that applies the corresoponding expression
+5. Path Cost: Path cost is the same for all steps
