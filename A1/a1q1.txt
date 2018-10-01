@@ -1,5 +1,13 @@
+'''
+Fahd Hussain
+NISD: fah235
+Student Num: 11140722
+CMPT 317
+'''
 1. Initial State: An empty string
 2. Goal State: A string containing an expression that evaluates to the goal
-3. Actions: Add,Subtract,Multiply and Divide
+3. Actions: Add,Subtract,Multiply and Divide. Since these are the same at Every
+            Node, I use my action function to return all the values that can be
+            acted upon.
 4. Result: Return an expression that applies the corresoponding expression
 5. Path Cost: Path cost is the same for all steps

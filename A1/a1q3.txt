@@ -1,0 +1,24 @@
+'''
+Fahd Hussain
+NISD: fah235
+Student Num: 11140722
+CMPT 317
+'''
+
+def heuristic(goalState,currentState):
+      return abs(goalState - currentState)
+
+My heuristic finds the difference between the goal state and the current state so
+that the states can be sorted based on how far apart they are. The relaxed
+problem my heuristic comes from is simplifying the original problem to only have
+addition and subtraction. In that problem the closer to the goal state the better.
+
+Example:
+goalState = 20, currentState = 10
+hueristic(goalState,currentState) = 10
+
+goalState = 40, currentState = 55
+heuristic(goalState,currentState) = 15
+
+I don't think the given heuristic is admissible because it is possible to
+overestimate the path cost.
