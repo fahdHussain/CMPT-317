@@ -19,19 +19,26 @@ def BFS(problem):
     c = 0 #Counter
     qSize = 0 #Largest frontier size
     t = time.clock()
+    tLim = 30
     frontier = queue.Queue()
     initState = State()
     initState.set_values(problem.values)
     frontier.put(initState)
 
     while frontier.empty() == False:
+        if (time.clock() - t) > tLim:
+            return "Time Limit Reached: "+str(tLim)
+
         curState = frontier.get()
         c += 1
         if frontier.qsize() > qSize:
-            qSize = frontir.qSize()
+            qSize = frontier.qsize()
+
         if problem.is_goal(curState):
             t = time.clock() - t
             print("Runtime: "+str(t))
+            print("Nodes Explored: "+str(c))
+            print("Max Frontier Size: "+str(qSize))
             return curState.curExp()
         else:
             actions = problem.actions(curState)
@@ -42,7 +49,6 @@ def BFS(problem):
                         frontier.put(levelTwoState)
                     else:
                         addState = problem.result(curState,"add",i)
-                        #print(addState.get_values())
                         subState = problem.result(curState,"sub",i)
                         mulState = problem.result(curState,"mul",i)
                         divState = problem.result(curState,"div",i)
@@ -61,12 +67,26 @@ def DFS(problem):
     initState = State()
     initState.set_values(problem.values)
     frontier.append(initState)
+    tLim = 30
+    c = 0 #Counter
+    qSize = 0 #Largest frontier size
 
     while len(frontier) != 0:
+
+        if (time.clock() - t) > tLim:
+            return "Time Limit Reached: "+str(tLim)
+
         curState = frontier.pop()
+        c += 1
+
+        if len(frontier) > qSize:
+            qSize = len(frontier)
+
         if problem.is_goal(curState):
             t = time.clock() - t
             print("Runtime: "+str(t))
+            print("Nodes Explored: "+str(c))
+            print("Max Frontier Size: "+str(qSize))
             return curState.curExp()
         else:
             actions = problem.actions(curState)
@@ -99,12 +119,26 @@ def DL(problem, limit):
     t = time.clock()
     success = False
     cutoff = False
+    tLim = 30
+    c = 0 #Counter
+    qSize = 0 #Largest frontier size
 
     while len(frontier) != 0:
+
+        if (time.clock() - t) > tLim:
+            return "Time Limit Reached: "+str(tLim)
+
         curNode = frontier.pop()
+        c += 1
+
+        if len(frontier) > qSize:
+            qSize = len(frontier)
+
         if problem.is_goal(curNode.state):
             t = time.clock() - t
             print("Runtime: "+str(t))
+            print("Nodes Explored: "+str(c))
+            print("Max Frontier Size: "+str(qSize))
             return [curNode.state.curExp(),"Success"]
         else:
             if curNode.depth < limit:
@@ -162,8 +196,12 @@ if __name__ == "__main__":
         problem.set_values(args[i][1])
         print("\nValues: "+str(problem.values))
         print("Goal: "+ str(problem.goal))
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         print("Solution: "+str(ID(problem)))#PICK SEARCH METHOD HERE: BFS,DFS,DL,ID
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
     t = time.clock() - t
     print("Total Runtime for "+str(simple_problems)+" problems "+str(t))
